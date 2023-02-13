@@ -1,10 +1,9 @@
-// import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  /*
   const allowlist = [
     process.env.CORS_URL_HTTP ?? 'http://localhost:3000',
     process.env.CORS_URL_HTTPS ?? 'https://localhost:3000',
@@ -23,8 +22,6 @@ async function bootstrap() {
     callback(null, corsOptions); // callback expects two parameters: error and options
   };
   app.enableCors(corsOptionsDelegate);
-  */
-  app.enableCors();
   await app.listen(process.env.PORT ? parseInt(process.env.PORT) : 3000);
 }
 bootstrap();
