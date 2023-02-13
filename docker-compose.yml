@@ -5,10 +5,12 @@ services:
     container_name: kupipodariday_db
     image: "postgres:12.13-alpine"
     env_file: .env
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data/pgdata
     ports:
       - "5432:5432"
-    # networks:
-    #   - kupipodariday-db 
+    networks:
+      - kupipodariday-db
     restart: on-failure
 
   backend:
@@ -17,11 +19,17 @@ services:
     env_file: .env
     ports:
       - "4000:3001"
-    # networks:
-    #   - kupipodariday-backend
-    #   - kupipodariday-db
+    networks:
+      - kupipodariday-backend
+      - kupipodariday-db
     depends_on:
       - database
+    healthcheck:
+      test: "wget -nv -t1 --spider 'http://localhost:3001/'"
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     restart: on-failure
 
   frontend:
@@ -29,9 +37,16 @@ services:
     build: ./frontend
     ports:
       - "8081:80"
-    # networks:
-    #   - kupipodariday-backend
+    networks:
+      - kupipodariday-backend
     depends_on:
       - backend
     restart: on-failure
 
+
+networks:
+  kupipodariday-db: 
+    driver: bridge
+    internal: true
+  kupipodariday-backend:
+    driver: bridge

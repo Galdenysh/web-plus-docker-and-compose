@@ -37,3 +37,6 @@ lerna-debug.log*
 # Env
 .env
 .env.deploy
+
+# DB
+/pg-data
