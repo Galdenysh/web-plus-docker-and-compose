@@ -29,12 +29,12 @@ npm run start:dev
 - PORT
 - JWT_SECRET
 - JWT_EXPIRES
-- DB_TYPE
-- DB_HOST
-- DB_PORT
-- DB_USERNAME
-- DB_PASSWORD
-- DB_DATABASE
-- DB_SYNCHRONIZE
+- POSTGRES_TYPE
+- POSTGRES_HOST
+- POSTGRES_PORT
+- POSTGRES_USER
+- POSTGRES_PASSWORD
+- POSTGRES_DB
+- POSTGRES_SYNCHRONIZE
 
 Если не указать переменные, то будут использованы значения по умолчанию.

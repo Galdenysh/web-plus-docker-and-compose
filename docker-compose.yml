@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+
+  database:
+    container_name: kupipodariday_db
+    image: "postgres:12.13-alpine"
+    env_file: .env
+    ports:
+      - "5432:5432"
+    # networks:
+    #   - kupipodariday-db 
+    restart: on-failure
+
+  backend:
+    container_name: kupipodariday_backend
+    build: ./backend
+    env_file: .env
+    ports:
+      - "4000:3001"
+    # networks:
+    #   - kupipodariday-backend
+    #   - kupipodariday-db
+    depends_on:
+      - database
+    restart: on-failure
+
+  frontend:
+    container_name: kupipodariday_frontend
+    build: ./frontend
+    ports:
+      - "8081:80"
+    # networks:
+    #   - kupipodariday-backend
+    depends_on:
+      - backend
+    restart: on-failure
+
