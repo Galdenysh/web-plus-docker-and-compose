@@ -7,12 +7,12 @@ import { Wishlist } from 'src/wishlists/entities/wishlist.entity';
 export default registerAs('database', () => {
   return {
     type: process.env.POSTGRES_TYPE ?? 'postgres',
-    host: process.env.POSTGRES_HOST ?? 'localhost',
+    host: process.env.POSTGRES_HOST ?? 'database',
     port: process.env.POSTGRES_PORT
       ? parseInt(process.env.POSTGRES_PORT)
       : 5432,
-    username: process.env.POSTGRES_USER ?? 'username',
-    password: process.env.POSTGRES_PASSWORD ?? 'password',
+    username: process.env.POSTGRES_USER ?? 'you_user',
+    password: process.env.POSTGRES_PASSWORD ?? 'you_pass',
     database: process.env.POSTGRES_DB ?? 'nest_project',
     entities: [User, Wish, Wishlist, Offer],
     synchronize: process.env.POSTGRES_SYNCHRONIZE ?? true,
