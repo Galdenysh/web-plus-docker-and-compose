@@ -1,18 +1,18 @@
 # Stage 1
-FROM node:18-alpine as builder
+FROM node:16-alpine as builder
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm i
+RUN npm ci
 
 COPY . .
 
 RUN npm run build
 
 # Stage 2
-FROM nginx:1.23.1-alpine as production
+FROM nginx:latest as production
 
 COPY --from=builder /app/build /usr/share/nginx/html
 

@@ -1,18 +1,18 @@
 # Stage 1
-FROM node:18-alpine as builder
+FROM node:16-alpine as builder
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm i
+RUN npm ci
 
 COPY . .
 
 RUN npm run build
 
 # Stage 2
-FROM node:18-alpine as production
+FROM node:16-alpine as production
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ COPY --from=builder /app/package*.json ./
 
 COPY --from=builder /app/ecosystem.config.js ./
 
-RUN npm i --omit=dev && npm i pm2 -g
+RUN npm ci --omit=dev && npm i pm2 -g
 
 COPY --from=builder /app/dist ./dist
 
